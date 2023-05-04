@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'qa.kurbatika'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation (
+            'com.codeborne:selenide:6.12.3',
+            'org.junit.jupiter:junit-jupiter-api:5.9.2')
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+}
