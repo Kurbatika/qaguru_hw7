@@ -1,8 +1,6 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
-import static com.codeborne.selenide.Selenide.*;
-
 
 public class RegistrationWithPageObjectsTests extends TestBase {
 
@@ -24,6 +22,7 @@ public class RegistrationWithPageObjectsTests extends TestBase {
         String userCity = "Delhi";
 
         registrationPage.openPage()
+                .closeBannerAndFooter()
                 .setFirstName(userFirstName)
                 .setLastName(userLastName)
                 .setEmail(userEmail)
@@ -33,11 +32,9 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .setSubject(userSubjects)
                 .setHobbies(userHobbies)
                 .setAvatar(userAvatar)
-                .setAddress(userAddress);
-
-        executeJavaScript("window.scrollTo(0, document.body.scrollHeight)");
-
-        registrationPage.setState(userState)
+                .setAddress(userAddress)
+                .pageScrollDown()
+                .setState(userState)
                 .setCity(userCity)
                 .submitUserInfo();
 
@@ -47,7 +44,7 @@ public class RegistrationWithPageObjectsTests extends TestBase {
                 .verifyResult("Gender", userGender)
                 .verifyResult("Mobile", userPhone)
                 .verifyResult("Date of Birth", userBirthDay + " " + userBirthMonth + "," + userBirthYear)
-                .verifyResult("Subjects", "Computer science")
+                .verifyResult("Subjects", userSubjects)
                 .verifyResult("Hobbies", userHobbies)
                 .verifyResult("Address", userAddress)
                 .verifyResult("State and City", userState + " " + userCity);

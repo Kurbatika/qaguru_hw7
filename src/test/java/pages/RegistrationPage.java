@@ -2,7 +2,7 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
-import pages.components.RegistrationResultsModal;
+import pages.components.RegistrationResultsModalComponents;
 
 import java.io.File;
 
@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class RegistrationPage {
     CalendarComponent calendarComponent = new CalendarComponent();
-    RegistrationResultsModal registrationResultsModal = new RegistrationResultsModal();
+    RegistrationResultsModalComponents registrationResultsModal = new RegistrationResultsModalComponents();
 
     private final String TITLE_TEXT = "Student Registration Form";
     private SelenideElement
@@ -34,9 +34,22 @@ public class RegistrationPage {
 
     public RegistrationPage openPage() {
         open("https://demoqa.com/automation-practice-form");
-        //$(".practice-form-wrapper").shouldHave(text(TITLE_TEXT));
+        $(".practice-form-wrapper").shouldHave(text(TITLE_TEXT));
+
+        return this;
+    }
+
+
+
+    public RegistrationPage closeBannerAndFooter() {
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
+
+        return this;
+    }
+
+    public RegistrationPage pageScrollDown() {
+        executeJavaScript("window.scrollTo(0, document.body.scrollHeight)");
 
         return this;
     }
